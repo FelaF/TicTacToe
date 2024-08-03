@@ -20,6 +20,7 @@ function Player(name, marker){
         console.log(`my marker is ${this.marker}`);
     };
     this.markPosition = function(gameBoard,spot){
+        
         switch(spot){
             case 1:
                 if((gameBoard.spotOne.length) == 0){
@@ -120,31 +121,20 @@ function Player(name, marker){
 function Game(...Players){
     this.PlayerAmount = Players.length 
     let playerlist = ""
+    this.Playing = ""
     this.Players = function(){
         for(Person in Players){
             playerlist = (`${Players[Person].name} has ${Players[Person].marker}`)
             console.log(playerlist)
         }
     }
-    if(this.PlayerAmount == 2){
-        console.log(`Game may Begin`)
     }
-    else{
-        console.log(`Tic Tac Toe requires two players to Begin`)
-    }
-    this.Players = function(){
-        if((Players.length) == 2){
-            let Player1 = Players[0]
-            let Player2 = Players[1]
-            console.log(`${Player1.name} is Player 1 and Player 2 is ${Player2.name}`)
+    this.lastMove = function(){
+        if(Player.markPosition(gameBoard, spot)){
+            this.Playing = `${Player.name}`
+            console.log(this.Playing)
         }
-
-    
     }
-    this.LastMove = function(Player.markPosition){
-
-    }
-}
 
 
 const FelaF = new Player("FelaF","X")
