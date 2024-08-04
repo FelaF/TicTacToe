@@ -25,6 +25,7 @@ function Player(name, marker){
             case 1:
                 if((gameBoard.spotOne.length) == 0){
                     gameBoard.spotOne.push(this.marker)
+                    
                     console.log(`marking position #${spot} with ${this.marker}`)
                 }
                 else if((gameBoard.spotOne.length > 0)){
@@ -116,35 +117,30 @@ function Player(name, marker){
 
     }
 }
-
-
-function Game(...Players){
-    this.PlayerAmount = Players.length 
-    let playerlist = ""
-    this.Playing = ""
-    this.Players = function(){
-        for(Person in Players){
-            playerlist = (`${Players[Person].name} has ${Players[Person].marker}`)
-            console.log(playerlist)
-        }
+function Game(Gameboard, ...Players){
+    this.players = Players
+    this.currentPlays = 0
+    this.Game = Gameboard
+    this.currentPlayer = function(){
+        randomNumber = (`${Math.floor(Math.random() * 2)}`)
+        return Players[randomNumber].name
     }
+    while(this.currentPlays < 10){
+        ++this.currentPlays
+        cheese = this.currentPlayer()
+        Play = prompt(`Where shall ${cheese} Play?`)
+        cheese.markPosition(this.Game,Play)
     }
-    this.lastMove = function(){
-        if(Player.markPosition(gameBoard, spot)){
-            this.Playing = `${Player.name}`
-            console.log(this.Playing)
-        }
-    }
-
+   
+}
 
 const FelaF = new Player("FelaF","X")
 const Jimmy = new Player("Jimmy", "O")
 const James = new Player("James", "X")
+Gameboard1 = createGameBoard()
+FelaF.markPosition(Gameboard1, 7)
+console.log(FelaF.name)
+Jimmy.markPosition(Gameboard1, 7)
+const G1 = new Game(Gameboard1, Jimmy, FelaF)
+console.log(G1.currentPlayer())
 
-let Game1 = new Game(FelaF,Jimmy)
-console.log(Game1.PlayerAmount)
-console.log(Game1.Players())
-const gameBoard1 = createGameBoard()
-console.log(gameBoard1.spotNine)
-FelaF.markPosition(gameBoard1, 9)
-console.log(gameBoard1.spots)
