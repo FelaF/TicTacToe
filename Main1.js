@@ -6,13 +6,10 @@ function createPlayer(name, marker){
     function getPlaying(){
         return playing;
     }
-    function placeMarker(spot){
-        spot.push(marker);
-    }
     
 
 
-    return{name, marker, playing, changePlaying, getPlaying, placeMarker}
+    return{name, marker, playing, changePlaying, getPlaying}
 
 }
 function createGameBoard(){
@@ -32,11 +29,12 @@ function createGameBoard(){
 function Game(gameBoard, ...Players){
     let playerList = Players
     let currentPlayer;
+    let player;
     function changeCurrentPlayer(){
         if(((playerList.length) == 2) && currentPlayer === undefined){
             randomPlayer = (`${Math.floor(Math.random() * 2)}`)
             Players[randomPlayer].changePlaying()
-            currentPlayer = Players[randomPlayer].name
+            currentPlayer = Players[randomPlayer]
         }
         else if(playerList.length < 2){
             console.log (`need more players to play`);
@@ -44,17 +42,119 @@ function Game(gameBoard, ...Players){
         else if(playerList.length > 2){
             console.log(`Too many players`);
         }
-        else if(((playerList.length) == 2) && currentPlayer == Players[0].name){
-            currentPlayer = Players[1].name;
+        else if(((playerList.length) == 2) && currentPlayer == Players[0]){
+            currentPlayer = Players[1];
         }
-        else if(((playerList.length) == 2) && currentPlayer == Players[1].name){
-            currentPlayer = Players[0].name;
+        else if(((playerList.length) == 2) && currentPlayer == Players[1]){
+            currentPlayer = Players[0];
+
     }
+    player = currentPlayer.name
+    console.log(`${player}`)
     }
     function getCurrentPlayer(){
         return currentPlayer;
     }
-    return{currentPlayer, changeCurrentPlayer, gameBoard, getCurrentPlayer}
+    function placeMarker(){
+        choice = Number(prompt(`Where will ${currentPlayer.name} play?`))
+        console.log(currentPlayer.marker)
+        console.log(gameBoard.spots.length)
+        switch(choice){
+            case 1:
+                if((gameBoard.spotOne.length) == 0){
+                    gameBoard.spotOne.push(currentPlayer.marker)
+                    
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotOne.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 2:
+                if((gameBoard.spotTwo.length) == 0){
+                    gameBoard.spotTwo.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotTwo.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 3:
+                if((gameBoard.spotThree.length) == 0){
+                    gameBoard.spotThree.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotThree.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 4:
+                if((gameBoard.spotFour.length) == 0){
+                    gameBoard.spotFour.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotFour.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 5:
+                if((gameBoard.spotFive.length) == 0){
+                    gameBoard.spotFive.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotFive.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 6:
+                if((gameBoard.spotSix.length) == 0){
+                    gameBoard.spotSix.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotSix.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 7:
+                if((gameBoard.spotSeven.length) == 0){
+                    gameBoard.spotSeven.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotSeven.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 8:
+                if((gameBoard.spotEight.length) == 0){
+                    gameBoard.spotEight.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotEight.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+            case 9:
+                if((gameBoard.spotNine.length) == 0){
+                    gameBoard.spotNine.push(currentPlayer.marker)
+                    console.log(`marking position #${choice} with ${currentPlayer.marker}`)
+                }
+                else if((gameBoard.spotNine.length > 0)){
+                    console.log(`Cannot mark the same spot twice in Tic Tac Toe`)
+                }
+                console.log(gameBoard.spots)
+                break;
+    }
+
+    }
+    return{currentPlayer, changeCurrentPlayer, gameBoard, getCurrentPlayer, placeMarker}
 }
 
 const FelaF = createPlayer("FelaF", "X")
@@ -68,8 +168,14 @@ const GM1 = createGameBoard()
 console.log(GM1.spots)
 const TicTacToe = Game(GM1,FelaF,Jimmy)
 TicTacToe.changeCurrentPlayer()
-console.log(TicTacToe.getCurrentPlayer())
+TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
-console.log(TicTacToe.getCurrentPlayer())
+TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
-console.log(TicTacToe.getCurrentPlayer())
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
