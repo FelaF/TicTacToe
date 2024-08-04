@@ -44,11 +44,11 @@ function Game(gameBoard, ...Players){
         else if(playerList.length > 2){
             console.log(`Too many players`);
         }
-        else if(((playerList.length) == 2) && currentPlayer == Players[0]){
-            currentPlayer = Players[1];
+        else if(((playerList.length) == 2) && currentPlayer == Players[0].name){
+            currentPlayer = Players[1].name;
         }
-        else if(((playerList.length) == 2) && currentPlayer == Players[1]){
-            currentPlayer = Players;
+        else if(((playerList.length) == 2) && currentPlayer == Players[1].name){
+            currentPlayer = Players[0].name;
     }
     }
     function getCurrentPlayer(){
@@ -67,3 +67,9 @@ const Jimmy = createPlayer("Jimmy", "O")
 const GM1 = createGameBoard()
 console.log(GM1.spots)
 const TicTacToe = Game(GM1,FelaF,Jimmy)
+TicTacToe.changeCurrentPlayer()
+console.log(TicTacToe.getCurrentPlayer())
+TicTacToe.changeCurrentPlayer()
+console.log(TicTacToe.getCurrentPlayer())
+TicTacToe.changeCurrentPlayer()
+console.log(TicTacToe.getCurrentPlayer())
