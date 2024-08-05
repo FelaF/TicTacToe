@@ -1,5 +1,5 @@
 function createGameboard(name){
-    let gameboard = [[],[],[],[],[],[],[],[],[]];
+    let gameboard = [];
     return {gameboard}
 }
 
