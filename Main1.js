@@ -23,7 +23,8 @@ function createGameBoard(){
     let spotEight = [];
     let spotNine = [];
     let spots = [spotOne,spotTwo,spotThree,spotFour,spotFive,spotSix,spotSeven,spotEight,spotNine];
-    return {spots,spotOne,spotTwo,spotThree,spotFour,spotFive,spotSix,spotSeven,spotEight,spotNine};
+    let filledSpots = []
+    return {spots,filledSpots,spotOne,spotTwo,spotThree,spotFour,spotFive,spotSix,spotSeven,spotEight,spotNine};
 }
 
 function Game(gameBoard, ...Players){
@@ -56,14 +57,13 @@ function Game(gameBoard, ...Players){
         return currentPlayer;
     }
     function placeMarker(){
-        choice = Number(prompt(`Where will ${currentPlayer.name} play?`))
+        let choice = Number(prompt(`Where will ${currentPlayer.name} play?`))
         console.log(currentPlayer.marker)
         console.log(gameBoard.spots.length)
         switch(choice){
             case 1:
                 if((gameBoard.spotOne.length) == 0){
                     gameBoard.spotOne.push(currentPlayer.marker)
-                    
                     console.log(`marking position #${choice} with ${currentPlayer.marker}`)
                 }
                 else if((gameBoard.spotOne.length > 0)){
@@ -152,9 +152,14 @@ function Game(gameBoard, ...Players){
                 console.log(gameBoard.spots)
                 break;
     }
-
     }
-    return{currentPlayer, changeCurrentPlayer, gameBoard, getCurrentPlayer, placeMarker}
+    function getFilledSpots(Player){
+        for (spot in gameBoard.spots){
+            console.log(gameBoard.spots[spot])
+            
+        }
+    }
+    return{currentPlayer, changeCurrentPlayer, gameBoard, getCurrentPlayer, placeMarker, getFilledSpots}
 }
 
 const FelaF = createPlayer("FelaF", "X")
@@ -179,3 +184,5 @@ TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
+TicTacToe.getFilledSpots(FelaF)
+console.log(TicTacToe.gameBoard.filledSpots)
