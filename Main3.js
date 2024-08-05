@@ -1,94 +1,86 @@
+function createGameboard(name){
+    let gameboard = [[],[],[],[],[],[],[],[],[]];
+    return {gameboard}
+}
+
 function createPlayer(name, marker){
-    let playing = false
-    function changePlaying(){
-        playing = !playing;
-    }
-    function getPlaying(){
-        return playing;
-    }
-    function placeMarker(spot){
-        spot.push(marker);
-    }
-    
-
-
-    return{name, marker, playing, changePlaying, getPlaying, placeMarker}
-
+    return{name, marker}
 }
-function createGameBoard(){
-    let spotOne = [];
-    let spotTwo = [];
-    let spotThree = [];
-    let spotFour = [];
-    let spotFive = [];
-    let spotSix = [];
-    let spotSeven = [];
-    let spotEight = [];
-    let spotNine = [];
-    let spots = [spotOne,spotTwo,spotThree,spotFour,spotFive,spotSix,spotSeven,spotEight,spotNine];
-    return {spots,spotOne,spotTwo,spotThree,spotFour,spotFive,spotSix,spotSeven,spotEight,spotNine};
-}
-
-function Game(gameBoard, ...Players){
-    let playerList = Players
+function Game(gameboard, ...Players){
+    let players = Players
     let currentPlayer;
-    let player;
     function changeCurrentPlayer(){
-        if(((playerList.length) == 2) && currentPlayer === undefined){
-            randomPlayer = (`${Math.floor(Math.random() * 2)}`)
-            Players[randomPlayer].changePlaying()
-            currentPlayer = Players[randomPlayer]
+        if(((players.length) == 2) && currentPlayer == undefined){
+            randomPlayer = (`${Math.floor(Math.random() * 2)}`);
+            currentPlayer = Players[randomPlayer];
         }
-        else if(playerList.length < 2){
+        else if(players.length < 2){
             console.log (`need more players to play`);
         }
-        else if(playerList.length > 2){
+        else if(players.length > 2){
             console.log(`Too many players`);
         }
-        else if(((playerList.length) == 2) && currentPlayer == Players[0]){
+        else if(((players.length) == 2) && currentPlayer == Players[0]){
             currentPlayer = Players[1];
         }
-        else if(((playerList.length) == 2) && currentPlayer == Players[1]){
+        else if(((players.length) == 2) && currentPlayer == Players[1]){
             currentPlayer = Players[0];
-
-    }
-    player = currentPlayer.name
-    console.log(`${player}`)
+        } 
+    console.log(currentPlayer.name)
     }
     function getCurrentPlayer(){
-        return currentPlayer;
+        return currentPlayer
     }
     function placeMarker(){
-        choice = prompt(`Where will ${currentPlayer.name} play?`)
+        choice = Number(prompt(`Where will ${currentPlayer.name} play?`))
         switch(choice){
+            case 0:
+                gameboard[0] = currentPlayer.marker;
+                break;
             case 1:
-                if(gameBoard.spotOne.length)
-                gameBoard.spotOne.push(currentPlayer.marker)
-                console.log(`Adding ${currentPlayer.marker} to spot ${choice}`)
-              break;  
+                gameboard[1] = currentPlayer.marker;
+                break;
             case 2:
-                gameBoard.spotTwo.push(c)
+                gameboard[2] = currentPlayer.marker;
                 break;
             case 3:
+                gameboard[3] = currentPlayer.marker;
+                break;
+            case 4:
+                gameboard[4] = currentPlayer.marker;
+                break;
+            case 5:
+                gameboard[5] = currentPlayer.marker;
+                break;
+            case 6:
+                gameboard[6] = currentPlayer.marker;
+                break;
+            case 7:
+                gameboard[7] = currentPlayer.marker;
+                break
+            case 8:
+                gameboard[8] = currentPlayer.marker
                 break;
         }
-    }
-    return{currentPlayer, changeCurrentPlayer, gameBoard, getCurrentPlayer, placeMarker}
-}
+        console.log(gameboard[choice])
 
-const FelaF = createPlayer("FelaF", "X")
-console.log(FelaF.playing)
-FelaF.changePlaying()
-console.log(FelaF.getPlaying())
-FelaF.changePlaying()
-console.log(FelaF.getPlaying())
-const Jimmy = createPlayer("Jimmy", "O")
-const GM1 = createGameBoard()
-console.log(GM1.spots)
-const TicTacToe = Game(GM1,FelaF,Jimmy)
+    }
+    return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker}
+}
+GMB = createGameboard("TicTacToe")
+FelaF = createPlayer("FelaF", "X")
+Jimmy = createPlayer("Jimmy", "O")
+TicTacToe = Game(GMB,FelaF,Jimmy)
 TicTacToe.changeCurrentPlayer()
-console.log(TicTacToe.getCurrentPlayer())
 TicTacToe.changeCurrentPlayer()
-console.log(TicTacToe.getCurrentPlayer())
 TicTacToe.changeCurrentPlayer()
-console.log(TicTacToe.getCurrentPlayer())
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+console.log(TicTacToe.gameboard)
+
+
+
