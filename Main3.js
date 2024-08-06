@@ -6,7 +6,8 @@ function createGameboard(){
 
 function createPlayer(name, marker){
     let winningCondtion = "Neither";
-    return{name, marker, winningCondtion}
+    let marks = ""
+    return{name, marker, winningCondtion, marks}
 }
 function Game(gameboard, ...Players){
     let players = Players
@@ -100,17 +101,19 @@ function Game(gameboard, ...Players){
                 console.log(`three down`)
                 Player.winningCondtion = "Three Vertical"
                 break;
-            case `048`:
-            case `246`:
+            case '048':
+            case '246':
                 console.log(`three along the diagonal`)
                 Player.winningCondtion = "Three Diagonal"
         }
-        return marked,winningCondtion
+        return marked
     }
     function checkforWinner(){
         for(each in Players){
-            if(winningCondtion != "Neither")
-                console.log(each.name, each.winningCondtion)
+            each.marks = markedSpots(each)
+        }
+        if(Players[0].winningCondtion != "Neither" && Players[1].winningCondtion != "Neither"){
+
         }
     }
     return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
