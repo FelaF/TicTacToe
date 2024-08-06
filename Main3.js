@@ -1,5 +1,6 @@
-function createGameboard(name){
-    let gameboard = [];
+function createGameboard(){
+    let gameboard = ["spotZero","spotOne","spotTwo","spotThree","spotFour","spotFive", 
+        "spotSix","spotSeven","spotEight"];
     return {gameboard}
 }
 
@@ -32,55 +33,77 @@ function Game(gameboard, ...Players){
         return currentPlayer
     }
     function placeMarker(){
-        choice = Number(prompt(`Where will ${currentPlayer.name} play?`))
+        let choice = Number(prompt(`What will ${currentPlayer.name} play?`))
         switch(choice){
             case 0:
-                gameboard[0] = currentPlayer.marker;
+                gameboard.gameboard[0] = currentPlayer.marker
                 break;
             case 1:
-                gameboard[1] = currentPlayer.marker;
+                gameboard.gameboard[1] = currentPlayer.marker
                 break;
             case 2:
-                gameboard[2] = currentPlayer.marker;
+                gameboard.gameboard[2] = currentPlayer.marker
                 break;
             case 3:
-                gameboard[3] = currentPlayer.marker;
+                gameboard.gameboard[3] = currentPlayer.marker
                 break;
             case 4:
-                gameboard[4] = currentPlayer.marker;
+                gameboard.gameboard[4] = currentPlayer.marker
                 break;
             case 5:
-                gameboard[5] = currentPlayer.marker;
+                gameboard.gameboard[5] = currentPlayer.marker
                 break;
             case 6:
-                gameboard[6] = currentPlayer.marker;
+                gameboard.gameboard[6] = currentPlayer.marker
                 break;
             case 7:
-                gameboard[7] = currentPlayer.marker;
-                break
+                gameboard.gameboard[7] = currentPlayer.marker
+                break;
             case 8:
-                gameboard[8] = currentPlayer.marker
+                gameboard.gameboard[8] = currentPlayer.marker
+
+        }
+        }
+
+    function markedSpots(Player){
+        let marked = [];
+        for(const i in gameboard.gameboard){
+            if(gameboard.gameboard[i] == Player.marker){
+                marked.push(i)
+            }
+        }
+        marked = Array(marked)
+        switch(marked){
+            case ['0','1','2']:
+                console.log(`${Player.name} has marked "three across":${marked}`)
+                break;
+            case ['2','5','8']:
+            case ['1','4','7']:
+            case ['0','3','6']:
+                console.log(`${Player.name} has marked "three down": ${marked} `)
+                break;
+            case ['0', '4', '8']:
+            case ['2', '4', '6']:
+                console.log(`${Player.name} has marked "three along diagonal": ${marked}`)
                 break;
         }
-        console.log(gameboard[choice])
-
+        return marked
     }
-    return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker}
+    return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots}
 }
 GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")
 TicTacToe = Game(GMB,FelaF,Jimmy)
 TicTacToe.changeCurrentPlayer()
-TicTacToe.changeCurrentPlayer()
-TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
 console.log(TicTacToe.gameboard)
-
-
-
+console.log(TicTacToe.markedSpots(FelaF))
