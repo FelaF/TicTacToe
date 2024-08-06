@@ -67,27 +67,37 @@ function Game(gameboard, ...Players){
 
     function markedSpots(Player){
         let marked = [];
+        let winningCondtion = "Neither"
         for(const i in gameboard.gameboard){
             if(gameboard.gameboard[i] == Player.marker){
                 marked.push(i)
             }
         }
-        marked = Array(marked)
-        switch(marked){
-            case ['0','1','2']:
-                console.log(`${Player.name} has marked "three across":${marked}`)
+        switch(marked.join('')){
+            case '012':
+            case '345':
+            case '678':
+                console.log(`three across`)
+                winningCondtion = "Three Across"
                 break;
-            case ['2','5','8']:
-            case ['1','4','7']:
-            case ['0','3','6']:
-                console.log(`${Player.name} has marked "three down": ${marked} `)
+            case '036':
+            case '147':
+            case '258':
+                console.log(`three down`)
+                winningCondtion = "Three Vertical"
                 break;
-            case ['0', '4', '8']:
-            case ['2', '4', '6']:
-                console.log(`${Player.name} has marked "three along diagonal": ${marked}`)
-                break;
+            case `048`:
+            case `246`:
+                console.log(`three along the diagonal`)
+                winningCondtion = "Three Diagonal"
         }
-        return marked
+        return marked,winningCondtion
+    function checkforWinner(){
+        let Winner;
+        if (winningCondtion != "Neither"){
+            console.log(`No Winner yet`)
+        }
+    }
     }
     return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots}
 }
@@ -95,6 +105,8 @@ GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")
 TicTacToe = Game(GMB,FelaF,Jimmy)
+TicTacToe.changeCurrentPlayer()
+TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
