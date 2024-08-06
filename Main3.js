@@ -5,7 +5,8 @@ function createGameboard(){
 }
 
 function createPlayer(name, marker){
-    return{name, marker}
+    let winningCondtion = "Neither";
+    return{name, marker, winningCondtion}
 }
 function Game(gameboard, ...Players){
     let players = Players
@@ -34,40 +35,53 @@ function Game(gameboard, ...Players){
     }
     function placeMarker(){
         let choice = Number(prompt(`What will ${currentPlayer.name} play?`))
-        switch(choice){
-            case 0:
-                gameboard.gameboard[0] = currentPlayer.marker
-                break;
-            case 1:
-                gameboard.gameboard[1] = currentPlayer.marker
-                break;
-            case 2:
-                gameboard.gameboard[2] = currentPlayer.marker
-                break;
-            case 3:
-                gameboard.gameboard[3] = currentPlayer.marker
-                break;
-            case 4:
-                gameboard.gameboard[4] = currentPlayer.marker
-                break;
-            case 5:
-                gameboard.gameboard[5] = currentPlayer.marker
-                break;
-            case 6:
-                gameboard.gameboard[6] = currentPlayer.marker
-                break;
-            case 7:
-                gameboard.gameboard[7] = currentPlayer.marker
-                break;
-            case 8:
-                gameboard.gameboard[8] = currentPlayer.marker
-
+        if (currentPlayer.winningCondtion == "Neither"){
+            switch(choice){
+                case 0:
+                    gameboard.gameboard[0] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 0`)
+                    break;
+                case 1:
+                    gameboard.gameboard[1] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 1`)
+                    break;
+                case 2:
+                    gameboard.gameboard[2] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 2`)
+                    break;
+                case 3:
+                    gameboard.gameboard[3] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 3`)
+                    break;
+                case 4:
+                    gameboard.gameboard[4] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 4`)
+                    break;
+                case 5:
+                    gameboard.gameboard[5] = currentPlayer.marker
+                    console.log(`${currentPlayer.name}placed ${currentPlayer.marker} at position 5`)
+                    break;
+                case 6:
+                    gameboard.gameboard[6] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 6`)
+                    break;
+                case 7:
+                    gameboard.gameboard[7] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 7`)
+                    break;
+                case 8:
+                    gameboard.gameboard[8] = currentPlayer.marker
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 8`)
+    
+            }
+        }
+        else{
+            console.log(`It appears someone has already won. Cannot place anymore markers.`)
         }
         }
 
     function markedSpots(Player){
         let marked = [];
-        let winningCondtion = "Neither"
         for(const i in gameboard.gameboard){
             if(gameboard.gameboard[i] == Player.marker){
                 marked.push(i)
@@ -78,28 +92,28 @@ function Game(gameboard, ...Players){
             case '345':
             case '678':
                 console.log(`three across`)
-                winningCondtion = "Three Across"
+                Player.winningCondtion = "Three Across"
                 break;
             case '036':
             case '147':
             case '258':
                 console.log(`three down`)
-                winningCondtion = "Three Vertical"
+                Player.winningCondtion = "Three Vertical"
                 break;
             case `048`:
             case `246`:
                 console.log(`three along the diagonal`)
-                winningCondtion = "Three Diagonal"
+                Player.winningCondtion = "Three Diagonal"
         }
         return marked,winningCondtion
+    }
     function checkforWinner(){
-        let Winner;
-        if (winningCondtion != "Neither"){
-            console.log(`No Winner yet`)
+        for(each in Players){
+            if(winningCondtion != "Neither")
+                console.log(each.name, each.winningCondtion)
         }
     }
-    }
-    return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots}
+    return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
 }
 GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")
@@ -119,3 +133,4 @@ TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 console.log(TicTacToe.gameboard)
 console.log(TicTacToe.markedSpots(FelaF))
+TicTacToe.checkforWinner(FelaF)
