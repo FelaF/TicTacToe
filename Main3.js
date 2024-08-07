@@ -6,11 +6,11 @@ function createGameboard(){
 
 function createPlayer(name, marker){
     let winningCondtion = "None";
-    let marks = ""
-    return{name, marker, winningCondtion, marks}
+    return{name, marker, winningCondtion}
 }
 function Game(gameboard, ...Players){
     let players = Players
+    let markers = [Players[0].marker, Players[1].marker]
     let currentPlayer;
     function changeCurrentPlayer(){
         if(((players.length) == 2) && currentPlayer == undefined){
@@ -36,6 +36,15 @@ function Game(gameboard, ...Players){
     }
     function placeMarker(){
         let choice = Number(prompt(`What will ${currentPlayer.name} play?`))
+        if(gameboard.gameboard[choice] == markers[0]){
+            console.log(`cannot replace marker in same position.`)
+            choice = Number(prompt(`(again) What will ${currentPlayer.name} play?`))
+        }
+        else if(gameboard.gameboard[choice] == markers[1]){
+            console.log(`cannot replace marker in same position.`)
+            choice = Number(prompt(`(again) What will ${currentPlayer.name} play?`))
+        }
+        
         if (currentPlayer.winningCondtion == "None"){
             switch(choice){
                 case 0:
@@ -88,29 +97,29 @@ function Game(gameboard, ...Players){
                 marked.push(i)
             }
         }
-        switch(marked.join('')){
-            case '012':
-            case '345':
-            case '678':
-                console.log(`three across`)
+
+        if ( (marked.includes('0') && marked.includes('1') && marked.includes('2')) 
+            || (marked.includes('3') && marked.includes('4') && marked.includes('5')) 
+            || (marked.includes('6') && marked.includes('7') && marked.includes('8'))){
+                console.log("Three Across")
                 Player.winningCondtion = "Three Across"
-                break;
-            case '036':
-            case '147':
-            case '258':
-                console.log(`three down`)
+            }
+        else if( (marked.includes('0') && marked.includes('3') && marked.includes('6')) 
+            || (marked.includes('1') && marked.includes('4') && marked.includes('7')) 
+            || (marked.includes('2') && marked.includes('5') && marked.includes('8'))){
+                console.log("Three Vertical")
                 Player.winningCondtion = "Three Vertical"
-                break;
-            case '048':
-            case '246':
-                console.log(`three along the diagonal`)
-                Player.winningCondtion = "Three Diagonal"
+            }
+        else if( (marked.includes('0') && marked.includes('4') && marked.includes('8')) 
+            || (marked.includes('2') && marked.includes('4') && marked.includes('6'))){
+            console.log("Three Diagonal")
+            Player.winningCondtion = "Three Diagonal"
         }
         return marked
     }
     function checkforWinner(){
         for(each in Players){
-            each.marks = markedSpots(each)
+            markedSpots(each)
         }
         if(Players[0].winningCondtion != "None" && Players[1].winningCondtion != "None"){
             console.log(`two winners`)
@@ -122,27 +131,18 @@ function Game(gameboard, ...Players){
             console.log(`Winner: ${Players[1].name} ${Players[1].winningCondtion}`)
         }
     }
-    return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
+    return{players, currentPlayer, gameboard, markers, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
 }
 GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")
 TicTacToe = Game(GMB,FelaF,Jimmy)
-TicTacToe.changeCurrentPlayer()
-TicTacToe.placeMarker()
-TicTacToe.changeCurrentPlayer()
-TicTacToe.placeMarker()
-TicTacToe.checkforWinner()
-TicTacToe.changeCurrentPlayer()
-TicTacToe.placeMarker()
-TicTacToe.changeCurrentPlayer()
-TicTacToe.placeMarker()
-TicTacToe.checkforWinner()
-TicTacToe.changeCurrentPlayer()
-TicTacToe.placeMarker()
-TicTacToe.changeCurrentPlayer()
-TicTacToe.placeMarker()
-TicTacToe.checkforWinner()
+
+for(i = 0; i < 9;i++){
+    TicTacToe.changeCurrentPlayer()
+    TicTacToe.placeMarker()
+}
 console.log(TicTacToe.gameboard)
 console.log(TicTacToe.markedSpots(FelaF))
-TicTacToe.checkforWinner(FelaF)
+TicTacToe.checkforWinner()
+TicTacToe.checkforWinner()
