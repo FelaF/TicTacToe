@@ -5,7 +5,7 @@ function createGameboard(){
 }
 
 function createPlayer(name, marker){
-    let winningCondtion = "Neither";
+    let winningCondtion = "None";
     let marks = ""
     return{name, marker, winningCondtion, marks}
 }
@@ -36,7 +36,7 @@ function Game(gameboard, ...Players){
     }
     function placeMarker(){
         let choice = Number(prompt(`What will ${currentPlayer.name} play?`))
-        if (currentPlayer.winningCondtion == "Neither"){
+        if (currentPlayer.winningCondtion == "None"){
             switch(choice){
                 case 0:
                     gameboard.gameboard[0] = currentPlayer.marker
@@ -60,7 +60,7 @@ function Game(gameboard, ...Players){
                     break;
                 case 5:
                     gameboard.gameboard[5] = currentPlayer.marker
-                    console.log(`${currentPlayer.name}placed ${currentPlayer.marker} at position 5`)
+                    console.log(`${currentPlayer.name} placed ${currentPlayer.marker} at position 5`)
                     break;
                 case 6:
                     gameboard.gameboard[6] = currentPlayer.marker
@@ -112,8 +112,14 @@ function Game(gameboard, ...Players){
         for(each in Players){
             each.marks = markedSpots(each)
         }
-        if(Players[0].winningCondtion != "Neither" && Players[1].winningCondtion != "Neither"){
-
+        if(Players[0].winningCondtion != "None" && Players[1].winningCondtion != "None"){
+            console.log(`two winners`)
+        }
+        else if(Players[0].winningCondtion != "None"){
+            console.log(`Winner: ${Players[0].name} ${Players[0].winningCondtion}`)
+        }
+        else if(Players[1].winningCondtion != "None"){
+            console.log(`Winner: ${Players[1].name} ${Players[1].winningCondtion}`)
         }
     }
     return{players, currentPlayer, gameboard, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
@@ -126,14 +132,17 @@ TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
+TicTacToe.checkforWinner()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
+TicTacToe.checkforWinner()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
 TicTacToe.changeCurrentPlayer()
 TicTacToe.placeMarker()
+TicTacToe.checkforWinner()
 console.log(TicTacToe.gameboard)
 console.log(TicTacToe.markedSpots(FelaF))
 TicTacToe.checkforWinner(FelaF)
