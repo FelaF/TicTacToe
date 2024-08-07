@@ -6,7 +6,8 @@ function createGameboard(){
 
 function createPlayer(name, marker){
     let winningCondtion = "None";
-    return{name, marker, winningCondtion}
+    let marks = []
+    return{name, marker, winningCondtion, marks}
 }
 function Game(gameboard, ...Players){
     let players = Players
@@ -34,6 +35,33 @@ function Game(gameboard, ...Players){
     function getCurrentPlayer(){
         return currentPlayer
     }
+    function markedSpots(Player){
+        let marked = [];
+        for(const i in gameboard.gameboard){
+            if(gameboard.gameboard[i] == Player.marker){
+                marked.push(i)
+            }
+        }
+
+        if ( (marked.includes('0') && marked.includes('1') && marked.includes('2')) 
+            || (marked.includes('3') && marked.includes('4') && marked.includes('5')) 
+            || (marked.includes('6') && marked.includes('7') && marked.includes('8'))){
+                console.log("Three Across")
+                Player.winningCondtion = "Three Across"
+            }
+        else if( (marked.includes('0') && marked.includes('3') && marked.includes('6')) 
+            || (marked.includes('1') && marked.includes('4') && marked.includes('7')) 
+            || (marked.includes('2') && marked.includes('5') && marked.includes('8'))){
+                console.log("Three Vertical")
+                Player.winningCondtion = "Three Vertical"
+            }
+        else if( (marked.includes('0') && marked.includes('4') && marked.includes('8')) 
+            || (marked.includes('2') && marked.includes('4') && marked.includes('6'))){
+            console.log("Three Diagonal")
+            Player.winningCondtion = "Three Diagonal"
+        }
+        return marked
+    }
     function placeMarker(){
         let choice = Number(prompt(`What will ${currentPlayer.name} play?`))
         if(gameboard.gameboard[choice] == markers[0]){
@@ -44,8 +72,8 @@ function Game(gameboard, ...Players){
             console.log(`cannot replace marker in same position.`)
             choice = Number(prompt(`(again) What will ${currentPlayer.name} play?`))
         }
-        
-        if (currentPlayer.winningCondtion == "None"){
+        currentPlayer.marks = markedSpots(currentPlayer)
+        if (currentPlayer.winningCondtion == "None" ){
             switch(choice){
                 case 0:
                     gameboard.gameboard[0] = currentPlayer.marker
@@ -89,34 +117,6 @@ function Game(gameboard, ...Players){
             console.log(`It appears someone has already won. Cannot place anymore markers.`)
         }
         }
-
-    function markedSpots(Player){
-        let marked = [];
-        for(const i in gameboard.gameboard){
-            if(gameboard.gameboard[i] == Player.marker){
-                marked.push(i)
-            }
-        }
-
-        if ( (marked.includes('0') && marked.includes('1') && marked.includes('2')) 
-            || (marked.includes('3') && marked.includes('4') && marked.includes('5')) 
-            || (marked.includes('6') && marked.includes('7') && marked.includes('8'))){
-                console.log("Three Across")
-                Player.winningCondtion = "Three Across"
-            }
-        else if( (marked.includes('0') && marked.includes('3') && marked.includes('6')) 
-            || (marked.includes('1') && marked.includes('4') && marked.includes('7')) 
-            || (marked.includes('2') && marked.includes('5') && marked.includes('8'))){
-                console.log("Three Vertical")
-                Player.winningCondtion = "Three Vertical"
-            }
-        else if( (marked.includes('0') && marked.includes('4') && marked.includes('8')) 
-            || (marked.includes('2') && marked.includes('4') && marked.includes('6'))){
-            console.log("Three Diagonal")
-            Player.winningCondtion = "Three Diagonal"
-        }
-        return marked
-    }
     function checkforWinner(){
         for(each in Players){
             markedSpots(each)
