@@ -73,7 +73,7 @@ function Game(gameboard, ...Players){
             choice = Number(prompt(`(again) What will ${currentPlayer.name} play?`))
         }
         currentPlayer.marks = markedSpots(currentPlayer)
-        if (currentPlayer.winningCondtion == "None" ){
+        if (Players[0].winningCondtion == "None" && Players[1].winningCondtion == "None"){
             switch(choice){
                 case 0:
                     gameboard.gameboard[0] = currentPlayer.marker
@@ -131,18 +131,28 @@ function Game(gameboard, ...Players){
             console.log(`Winner: ${Players[1].name} ${Players[1].winningCondtion}`)
         }
     }
-    return{players, currentPlayer, gameboard, markers, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
+    function resetGame(){
+        Players[0].marks = []
+        Players[1].marks = []
+        Players[0].winningCondtion = "None"
+        Players[1].winningCondtion = "None"
+        currentPlayer = undefined
+        console.log(`**NEW GAME OF TIC-TAC-TOE STARTING**`)
+
+    }
+    return{players, currentPlayer, gameboard, markers, resetGame, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
 }
 GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")
 TicTacToe = Game(GMB,FelaF,Jimmy)
 
-for(i = 0; i < 9;i++){
+/*for(i = 0; i < 9;i++){
     TicTacToe.changeCurrentPlayer()
     TicTacToe.placeMarker()
-}
+}*/
 console.log(TicTacToe.gameboard)
 console.log(TicTacToe.markedSpots(FelaF))
 TicTacToe.checkforWinner()
-TicTacToe.checkforWinner()
+TicTacToe.resetGame()
+
