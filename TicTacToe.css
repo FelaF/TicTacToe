@@ -10,5 +10,20 @@ div.item {
     padding: 20px
 }
 body {
-    display:flex
+    display:flex;
+    flex-direction: column;
+    background-color: gray;;
+    color:green;
+    font-size: 20px;
+}
+button {
+    height:200px;
+    width: 200px;
+}
+#large.container{
+    display:grid;
+    grid-template-columns: 75px 250px 75px;
+}
+html {
+    color:grey;
 }

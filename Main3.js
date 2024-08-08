@@ -147,7 +147,7 @@ FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")
 TicTacToe = Game(GMB,FelaF,Jimmy)
 
-/*for(i = 0; i < 9;i++){
+/*for (i = 0; i < 9;i++){
     TicTacToe.changeCurrentPlayer()
     TicTacToe.placeMarker()
 }*/
