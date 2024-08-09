@@ -1,3 +1,7 @@
+const boardCells = document.querySelectorAll(".container button")
+const playerCreationButton = document.querySelectorAll(".Players > button")
+const playerCreation = document.querySelector(".PlayerDialog")
+
 function createGameboard(){
     let gameboard = ["spotZero","spotOne","spotTwo","spotThree","spotFour","spotFive", 
         "spotSix","spotSeven","spotEight"];
@@ -142,6 +146,22 @@ function Game(gameboard, ...Players){
     }
     return{players, currentPlayer, gameboard, markers, resetGame, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
 }
+
+boardCells.forEach((cell)=>{
+    cell.addEventListener("click", ()=>{
+        console.log(`cell ${cell.id}`);
+    })
+})
+
+playerCreationButton.forEach((button)=>{
+    button.addEventListener("click", ()=>{
+        const PlayerCreator = document.querySelector(`.Players > button#${button.id}`)
+       playerCreation.showModal()
+       console.log(`${button.id}`)
+    })
+})
+
+
 
 GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")

@@ -11,9 +11,9 @@
 <body>
     <header> TIC-TAC-TOE</header>
     <section id="large-container">
-        <article id="Players">
+        <article class="Players" id="1">
             Player1
-            <button>
+            <button id="1">
                 Enter Player
             </button>
         </article>
@@ -28,9 +28,9 @@
             <div class="item"><button id="7">7</button></div>
             <div class="item"><button id="8">8</button></div>
         </div>
-        <article id="Players">
+        <article class="Players" id="2">
             Player2
-            <button>
+            <button id="2">
                 Enter Player
             </button>
         </article>
@@ -39,11 +39,16 @@
                 <p>
                     <label for="playerName">What is the Player's Name</label>
                     <input type="text" id="PName" name="PName">
-                    <label>
+
+                    <label for="playerMarker">What is the Players marker?
                         <select>
-                            <option value=""></option>
+                            <option value="X">X</option>
+                            <option value="O">O</option>
                         </select>
+                    </label>
                 </p>
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="Confirm" value="default">Confirm</button>
             </form>
         </dialog>
     </section>
