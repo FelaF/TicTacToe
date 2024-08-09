@@ -142,6 +142,7 @@ function Game(gameboard, ...Players){
     }
     return{players, currentPlayer, gameboard, markers, resetGame, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
 }
+
 GMB = createGameboard("TicTacToe")
 FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")

@@ -13,21 +13,39 @@
     <section id="large-container">
         <article id="Players">
             Player1
+            <button>
+                Enter Player
+            </button>
         </article>
         <div class="container">
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
-            <div class="item"><button></button></div>
+            <div class="item"><button id="0">0</button></div>
+            <div class="item"><button id ="1">1</button></div>
+            <div class="item"><button id="2">2</button></div>
+            <div class="item"><button id="3">3</button></div>
+            <div class="item"><button id="4">4</button></div>
+            <div class="item"><button id="5">5</button></div>
+            <div class="item"><button id="6">6</button></div>
+            <div class="item"><button id="7">7</button></div>
+            <div class="item"><button id="8">8</button></div>
         </div>
         <article id="Players">
             Player2
+            <button>
+                Enter Player
+            </button>
         </article>
+        <dialog class="PlayerDialog">
+            <form>
+                <p>
+                    <label for="playerName">What is the Player's Name</label>
+                    <input type="text" id="PName" name="PName">
+                    <label>
+                        <select>
+                            <option value=""></option>
+                        </select>
+                </p>
+            </form>
+        </dialog>
     </section>
     <script src="Main3.js"></script>
 </body>
