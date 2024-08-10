@@ -1,6 +1,8 @@
 const boardCells = document.querySelectorAll(".container button")
 const playerCreationButtons = document.querySelectorAll(".Players > button")
 const playerCreation = document.querySelector(".PlayerDialog")
+const PlayerDisplay = document.querySelector("article.Players")
+const deeznutz = document.getElementById
 
 function createGameboard(){
     let gameboard = ["spotZero","spotOne","spotTwo","spotThree","spotFour","spotFive", 
@@ -155,8 +157,8 @@ boardCells.forEach((cell)=>{
 
 playerCreationButtons.forEach((button)=>{
     button.addEventListener("click", ()=>{
-       playerCreation.showModal()
-       console.log(`${button.id}`)
+        playerCreation.showModal()
+        console.log(`${button.id}`)
     })
 })
 
