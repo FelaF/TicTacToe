@@ -1,9 +1,12 @@
 const boardCells = document.querySelectorAll(".container button")
 const playerCreationButtons = document.querySelectorAll(".Players > button")
 const playerCreation = document.querySelector(".PlayerDialog")
-const PlayerDisplay = document.querySelector("article.Players")
-const deeznutz = document.getElementById
-
+const Players = document.querySelectorAll("article")
+const confirmBtn = document.querySelector("#Confirm")
+const selectEl = playerCreation.querySelector("select")
+const playerName = playerCreation.querySelector("#PName")
+const PlayerDisplayD = document.getElementById("PNamelabel")
+const MarkerDisplayD = document.getElementById("PMarkerlabel") 
 function createGameboard(){
     let gameboard = ["spotZero","spotOne","spotTwo","spotThree","spotFour","spotFive", 
         "spotSix","spotSeven","spotEight"];
@@ -157,10 +160,28 @@ boardCells.forEach((cell)=>{
 
 playerCreationButtons.forEach((button)=>{
     button.addEventListener("click", ()=>{
+        BID = button.id
+        PlayerDisplayD.innerHTML = `What is Player ${button.id}'s name?`
         playerCreation.showModal()
-        console.log(`${button.id}`)
+        return BID
     })
 })
+confirmBtn.addEventListener("click", (event)=>{
+    event.preventDefault()
+    let newplayer = createPlayer(playerName.value, selectEl.value)
+    let Player1 = Players[0]
+    let Player2 = Players[1]
+    Players.forEach(() =>{
+        if(BID == 1){
+            Player1.innerHTML = `${newplayer.name} has ${newplayer.marker}`
+        }
+        else if (BID == 2){
+            Player2.innerHTML = `${newplayer.name} has ${newplayer.marker}`
+        }
+    })
+    console.log(Player1, Player2)
+})
+
 
 
 
