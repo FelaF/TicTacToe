@@ -1,12 +1,3 @@
-const boardCells = document.querySelectorAll(".container button")
-const playerCreationButtons = document.querySelectorAll(".Players > button")
-const playerCreation = document.querySelector(".PlayerDialog")
-const Players = document.querySelectorAll("article")
-const confirmBtn = document.querySelector("#Confirm")
-const selectEl = playerCreation.querySelector("select")
-const playerName = playerCreation.querySelector("#PName")
-const PlayerDisplayD = document.getElementById("PNamelabel")
-const MarkerDisplayD = document.getElementById("PMarkerlabel") 
 function createGameboard(){
     let gameboard = ["spotZero","spotOne","spotTwo","spotThree","spotFour","spotFive", 
         "spotSix","spotSeven","spotEight"];
@@ -18,11 +9,15 @@ function createPlayer(name, marker){
     let marks = []
     return{name, marker, winningCondtion, marks}
 }
-function Game(gameboard, ...Players){
+
+const Game = (function (gameboard, ...Players){
     let players = Players
     let markers = [Players[0].marker, Players[1].marker]
     let currentPlayer;
-    function changeCurrentPlayer(){
+    const getCurrentPlayer = () => {
+        return currentPlayer
+    }
+    const changeCurrentPlayer = () => {
         if(((players.length) == 2) && currentPlayer == undefined){
             randomPlayer = (`${Math.floor(Math.random() * 2)}`);
             currentPlayer = Players[randomPlayer];
@@ -39,12 +34,8 @@ function Game(gameboard, ...Players){
         else if(((players.length) == 2) && currentPlayer == Players[1]){
             currentPlayer = Players[0];
         } 
-    console.log(currentPlayer.name)
     }
-    function getCurrentPlayer(){
-        return currentPlayer
-    }
-    function markedSpots(Player){
+    const markedSpots = () => {
         let marked = [];
         for(const i in gameboard.gameboard){
             if(gameboard.gameboard[i] == Player.marker){
@@ -71,7 +62,7 @@ function Game(gameboard, ...Players){
         }
         return marked
     }
-    function placeMarker(){
+    const placeMarker = () => {
         let choice = Number(prompt(`What will ${currentPlayer.name} play?`))
         if(gameboard.gameboard[choice] == markers[0]){
             console.log(`cannot replace marker in same position.`)
@@ -125,8 +116,8 @@ function Game(gameboard, ...Players){
         else{
             console.log(`It appears someone has already won. Cannot place anymore markers.`)
         }
-        }
-    function checkforWinner(){
+    }
+    const checkforWinner = () => {
         for(each in Players){
             markedSpots(each)
         }
@@ -140,73 +131,20 @@ function Game(gameboard, ...Players){
             console.log(`Winner: ${Players[1].name} ${Players[1].winningCondtion}`)
         }
     }
-    function resetGame(){
+    const resetGame = () => {
         Players[0].marks = []
         Players[1].marks = []
         Players[0].winningCondtion = "None"
         Players[1].winningCondtion = "None"
         currentPlayer = undefined
-        gameboard = ["spotZero","spotOne","spotTwo","spotThree","spotFour","spotFive", 
-            "spotSix","spotSeven","spotEight"]
         console.log(`**NEW GAME OF TIC-TAC-TOE STARTING**`)
-
     }
     return{players, currentPlayer, gameboard, markers, resetGame, changeCurrentPlayer, getCurrentPlayer, placeMarker, markedSpots, checkforWinner}
-}
 
-boardCells.forEach((cell)=>{
-    cell.addEventListener("click", ()=>{
-        console.log(`cell ${cell.id}`);
-    })
-})
-
-playerCreationButtons.forEach((button)=>{
-    button.addEventListener("click", ()=>{
-        BID = button.id
-        PlayerDisplayD.innerHTML = `What is Player ${button.id}'s name?`
-        playerCreation.showModal()
-        return BID
-    })
-})
-confirmBtn.addEventListener("click", (event)=>{
-    event.preventDefault()
-    let newplayer = createPlayer(playerName.value, selectEl.value)
-    let Player1 = Players[0]
-    let Player2 = Players[1]
-    Players.forEach(() =>{
-        if(BID == 1){
-            Player1.innerHTML = `${newplayer.name} has ${newplayer.marker}`
-        }
-        else if (BID == 2){
-            Player2.innerHTML = `${newplayer.name} has ${newplayer.marker}`
-        }
-    })
-    console.log(Player1, Player2)
-})
+})()
 
 
-
-
-GMB = createGameboard("TicTacToe")
-FelaF = createPlayer("FelaF", "X")
-Jimmy = createPlayer("Jimmy", "O")
-TicTacToe = Game(GMB,FelaF,Jimmy)
-
-for (i = 0; i < 9;i++){
-    TicTacToe.changeCurrentPlayer()
-    TicTacToe.placeMarker()
-}
-console.log(TicTacToe.gameboard)
-console.log(TicTacToe.markedSpots(FelaF))
-TicTacToe.checkforWinner()
-TicTacToe.resetGame()
-for (i = 0; i < 9;i++){
-    TicTacToe.changeCurrentPlayer()
-    TicTacToe.placeMarker()
-}
-console.log(TicTacToe.gameboard)
-console.log(TicTacToe.markedSpots(FelaF))
-TicTacToe.checkforWinner()
-TicTacToe.resetGame()
-
-
+const GMB = createGameboard()
+const FelaF = createPlayer("FelaF", "X")
+const Jimmy = createPlayer("Jimmy", "O")
+Game(GMB,FelaF,Jimmy)
