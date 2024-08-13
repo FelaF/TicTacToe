@@ -148,3 +148,16 @@ const GMB = createGameboard()
 const FelaF = createPlayer("FelaF", "X")
 const Jimmy = createPlayer("Jimmy", "O")
 Game(GMB,FelaF,Jimmy)
+
+for(const each in wincodes){
+    if ( (each.includes(Vertical[0])) || (each.includes(Vertical[1])) || (each.includes(Vertical[2])) ){
+        console.log("Vertical Win!")
+    }
+    else if ( (each.includes(Horizontal[0])) || (each.includes(Horizontal[1])) || (each.includes(Horizontal[2])) ){
+        console.log("Horizontal Win!")
+    }
+    else if ( (each.includes(Diagonal[0])) || (each.includes(Diagonal[1]))){
+        console.log("Diagonal Win!")
+    }
+
+}
