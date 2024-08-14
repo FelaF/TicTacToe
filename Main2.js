@@ -110,10 +110,10 @@ const Game = (function () {
         if( (Players[0].winningCondtion != "None") && (Players[1].winningCondtion != "None")){
             console.log("Tie. No winner")
         }
-        else if(Players[0] != "None"){
+        else if(Players[0].winningCondtion != "None"){
             console.log(`${Players[0].name} is the Winner with a ${Players[0].winningCondtion} win!`)
         }
-        else if(Players[1] != "None"){
+        else if(Players[1].winningCondtion != "None"){
             console.log(`${Players[1].name} is the Winner with a ${Players[1].winningCondtion} win!`)
         }
     }
@@ -132,6 +132,7 @@ const Game = (function () {
 
         Gameboard.Board = ["spotZero","spotOne", "spotTwo", "spotThree", "spotFour", 
             "spotFive", "spotSix", "spotSeven","spotEight"]
+        console.log("NEWGAME")
     }
 
     return {setGame, Gameboard, Players, getGame, resetGame, placeMarker, checkMarkers, checkWinner, getCurrentPlayer, changeCurrentPlayer}
@@ -142,19 +143,14 @@ Jimmy = createPlayer("Jimmy", "O")
 GB1 = createGameboard()
 Game.setGame(GB1,FelaF,Jimmy)
 console.log(Game.getGame())
-Game.changeCurrentPlayer()
-Game.placeMarker()
-Game.changeCurrentPlayer()
-Game.placeMarker()
-Game.changeCurrentPlayer()
-Game.placeMarker()
-Game.changeCurrentPlayer()
-Game.placeMarker()
-Game.changeCurrentPlayer()
-Game.placeMarker()
-Game.changeCurrentPlayer()
-Game.placeMarker()
-Game.checkMarkers()
+
+while(Players[0].winningCondtion == "None" && Players[1].winningCondtion == "None"){
+    for (each in Players){
+        Game.changeCurrentPlayer()
+        Game.placeMarker()
+    }
+}
+
 
 
 
