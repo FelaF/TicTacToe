@@ -40,6 +40,7 @@ const Game = (function () {
     }
 
     const placeMarker = () => {
+        let MarkerAmount = 0
         let choice = Number(prompt(`Which position will ${currentPlayer.name} play?`))
         while(choice > 8 || choice < 0){
             console.log(`cannot play this position. Board plays 0-8`)
@@ -47,13 +48,18 @@ const Game = (function () {
         }
         if(Gameboard.Board[choice] != Players[1].marker && Gameboard.Board[choice] != Players[0].marker){
             Gameboard.Board[choice] = currentPlayer.marker
+            MarkerAmount ++ 
         }
         else if (Gameboard.Board[choice] == Players[1].marker || Gameboard.Board[choice] == Players[0].marker){
             console.log("This position has already been played. Try again")
             choice = Number(prompt(`(again) Which position will ${currentPlayer.name} play?`))
         }
+        return{MarkerAmount}
 
         }
+    const getPlayers = () => {
+        return Players
+    }
 
     
 
@@ -135,21 +141,77 @@ const Game = (function () {
         console.log("NEWGAME")
     }
 
-    return {setGame, Gameboard, Players, getGame, resetGame, placeMarker, checkMarkers, checkWinner, getCurrentPlayer, changeCurrentPlayer}
+    return {setGame, getPlayers, Gameboard, Players, getGame, resetGame, placeMarker, checkMarkers, checkWinner, getCurrentPlayer, changeCurrentPlayer}
 })();
 
 FelaF = createPlayer("FelaF", "X")
 Jimmy = createPlayer("Jimmy", "O")
 GB1 = createGameboard()
 Game.setGame(GB1,FelaF,Jimmy)
-console.log(Game.getGame())
 
-while(Players[0].winningCondtion == "None" && Players[1].winningCondtion == "None"){
-    for (each in Players){
-        Game.changeCurrentPlayer()
-        Game.placeMarker()
-    }
+/* Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.changeCurrentPlayer()
+Game.placeMarker()
+Game.checkMarkers() */
+
+function gameDOM(){
+    const boardCells = document.querySelectorAll(".container button")
+    const playerCreationButtons = document.querySelectorAll(".Players > button")
+    const playerCreation = document.querySelector(".PlayerDialog")
+    const Players = document.querySelectorAll("article")
+    const confirmBtn = document.querySelector("#Confirm")
+    const selectEl = playerCreation.querySelector("select")
+    const playerName = playerCreation.querySelector("#PName")
+    const PlayerDisplayD = document.getElementById("PNamelabel")
+
+    boardCells.forEach((cell)=>{
+        cell.addEventListener("click", ()=>{
+            
+            console.log(`cell ${cell.id}`);
+        })
+    })
+    playerCreationButtons.forEach((button)=>{
+        button.addEventListener("click", ()=>{
+            BID = button.id
+            PlayerDisplayD.innerHTML = `What is Player ${button.id}'s name?`
+            playerCreation.showModal()
+            return BID
+        })
+    })
+    confirmBtn.addEventListener("click", (event)=>{
+        event.preventDefault()
+        let newplayer = createPlayer(playerName.value, selectEl.value)
+        let Player1 = Players[0]
+        let Player2 = Players[1]
+        Players.forEach(() =>{
+            if(BID == 1){
+                Player1.innerHTML = `${newplayer.name} has ${newplayer.marker}`
+            }
+            else if (BID == 2){
+                Player2.innerHTML = `${newplayer.name} has ${newplayer.marker}`
+            }
+        })
+        console.log(Player1, Player2)
+    })
 }
+gameDOM()
 
 
 
