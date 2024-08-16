@@ -5,13 +5,22 @@ for( i in list){
     list[i] = i + list[i]
 }
 
-newlist = list.filter((i) => i.includes("O"))
+let newlist = list.filter((i) => i.includes("O"))
 console.log(newlist)
 
-newerlist = newlist.map((x) => x[0])
+let newerlist = newlist.map((x) => x[0])
 console.log(newerlist)
 
 
-number = '012'
-numberagain = '0123'
+let number = '012'
+let numberagain = '0123'
 console.log(number.includes(numberagain))
+
+
+let opposite = true
+let real = !opposite
+
+
+let Jamison = ["A", "X", "E"]
+let James = !Jamison.includes("B")
+console.log(James)

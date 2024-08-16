@@ -197,18 +197,26 @@ function gameDOM(){
     })
     confirmBtn.addEventListener("click", (event)=>{
         event.preventDefault()
-        let newplayer = createPlayer(playerName.value, selectEl.value)
+        let selected = []
         let Player1 = Players[0]
         let Player2 = Players[1]
-        Players.forEach(() =>{
-            if(BID == 1){
-                Player1.innerHTML = `${newplayer.name} has ${newplayer.marker}`
-            }
-            else if (BID == 2){
-                Player2.innerHTML = `${newplayer.name} has ${newplayer.marker}`
-            }
-        })
-        console.log(Player1, Player2)
+        if((BID == 1) && (!selected.includes(selectEl.value))){
+            let newplayer1 = createPlayer(playerName.value,selectEl.value)
+            selected.push(selectEl.value)
+            Player1.innerHTML = `${playerName.value} has ${selectEl.value}`
+        }
+        else if((BID == 1) && (selected.includes(selectEl.value))){
+            console.log("cannot pick this marker")
+        }
+        if((BID == 2) && (!selected.includes(selectEl.value))){
+            let newplayer2 = createPlayer(playerName.value,selectEl.value)
+            selected.push(selectEl.value)
+            Player2.innerHTML = `${playerName.value} has ${selectEl.value}`
+        }
+        else if((BID == 2) && (selected.includes(selectEl.value))){
+            console.log("cannot pick this marker")
+        }
+        console.log(Player1, Player2, selected)
     })
 }
 gameDOM()
